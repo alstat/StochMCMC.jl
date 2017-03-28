@@ -20,9 +20,9 @@ using StochMCMC
 ## Tutorial 1: Bayesian Linear Regression
 In order to illustrate the modeling, the data is simulated from a simple linear regression expectation function. That is the model is given by
 
-\begin{equation}
+$$
 y_i= w_0 + w_1 x_i + \varepsilon_i,\quad\varepsilon_i\sim\mathcal{N}\left(0,\alpha^{-1}\right)
-\end{equation}
+$$
 
 To do so, let $\mathbf{B}\triangleq[w_0\;w_1]^{\text{T}}=[.2\;\;-.9]^{\text{T}}, \alpha = 1 / 5.$. Generate 200 hypothetical data:
 
@@ -49,3 +49,17 @@ y = f + rand(Normal(0, alpha), n);
 my_df = DataFrame(Independent = round(x, 4), Dependent = round(y, 4));
 my_df |> head # View the first six observations
 ```
+<script src='http://cdn.mathjax.org/mathjax/latest/MathJax.js' type='text/javascript'>    
+    MathJax.Hub.Config({
+        HTML: ["input/TeX","output/HTML-CSS"],
+        TeX: { extensions: ["AMSmath.js","AMSsymbols.js"],
+               equationNumbers: { autoNumber: "AMS" } },
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX","output/HTML-CSS"],
+        tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                   displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                   processEscapes: true },
+        "HTML-CSS": { availableFonts: ["TeX"],
+                      linebreaks: { automatic: true } }
+    });
+</script>
