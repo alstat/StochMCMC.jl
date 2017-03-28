@@ -30,6 +30,7 @@ To do so, let `B = [w_0 ;w_1]'=[.2  -.9]', a = 1 / 5.`. Generate 200 hypothetica
 using DataFrames
 using Distributions
 using Gadfly
+using StochMCMC
 Gadfly.push_theme(:dark)
 
 srand(123);
@@ -65,6 +66,7 @@ head(my_df)
 ```
 Next is to plot this data which can be done as follows:
 ```julia
-p = plot(my_df, x = :Independent, y = :Dependent)
-draw(PNG(20cm, 13cm), p)
+plot(my_df, x = :Independent, y = :Dependent)
 ```
+
+![(Right) Triangular Membership Function](https://github.com/alstat/StochMCMC.jl/blob/master/figures/plot1.svg)
