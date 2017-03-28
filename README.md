@@ -23,7 +23,7 @@ In order to illustrate the modeling, the data is simulated from a simple linear 
 ```
 y_i= w_0 + w_1 x_i + e_i,   e_i ~ N(0, 1 / a)
 ```
-
+### Data Simulation
 To do so, let `B = [w_0 ;w_1]'=[.2  -.9]', a = 1 / 5.`. Generate 200 hypothetical data:
 
 ```julia
@@ -71,3 +71,6 @@ p = plot(my_df, x = :Independent, y = :Dependent)
 ```
 
 ![(Right) Triangular Membership Function](https://github.com/alstat/StochMCMC.jl/blob/master/figures/plot1.png)
+
+### Prior Distribution
+In order to proceed with the Bayesian inference, the parameters of the model is considered the to be random modeled by a standard Gaussian distribution.
