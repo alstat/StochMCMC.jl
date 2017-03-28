@@ -2,9 +2,9 @@ module StochMCMC
 
 using Distributions
 
-include(joinpath(homedir(), "Dropbox/MS THESIS/JULIA/MH.jl"));
-include(joinpath(homedir(), "Dropbox/MS THESIS/JULIA/HMC.jl"));
-include(joinpath(homedir(), "Dropbox/MS THESIS/JULIA/SG HMC.jl"));
+include("MH.jl");
+include("HMC.jl");
+include("SGHMC.jl");
 
 export mcmc, MH, HMC, SGHMC
 
