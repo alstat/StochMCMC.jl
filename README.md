@@ -66,7 +66,8 @@ head(my_df)
 ```
 Next is to plot this data which can be done as follows:
 ```julia
-plot(my_df, x = :Independent, y = :Dependent)
+p = plot(my_df, x = :Independent, y = :Dependent)
+
 ```
 
-![(Right) Triangular Membership Function](https://github.com/alstat/StochMCMC.jl/blob/master/figures/plot1.svg)
+![(Right) Triangular Membership Function](https://github.com/alstat/StochMCMC.jl/blob/master/figures/plot1.png)
