@@ -71,6 +71,7 @@ p = plot(my_df, x = :Independent, y = :Dependent)
 ```
 
 ![(Right) Triangular Membership Function](https://github.com/alstat/StochMCMC.jl/blob/master/figures/plot1.png =250x)
+<img src="drawing.jpg" alt="Drawing" style="width: 200px;"/>
 
 ### Prior Distribution
 In order to proceed with the Bayesian inference, the parameters of the model is considered the to be random modeled by a standard Gaussian distribution.
