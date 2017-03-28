@@ -17,14 +17,14 @@ And to load the package:
 using StochMCMC
 ```
 
-## Tutorial 1: Bayesian Linear Regression
+## Tutorial: Bayesian Linear Regression
 In order to illustrate the modeling, the data is simulated from a simple linear regression expectation function. That is the model is given by
 
-$$
-y_i= w_0 + w_1 x_i + \varepsilon_i,\quad\varepsilon_i\sim\mathcal{N}\left(0,\alpha^{-1}\right)
-$$
+```
+y_i= w_0 + w_1 x_i + e_i,   e_i ~ N(0, 1 / a)
+```
 
-To do so, let $\mathbf{B}\triangleq[w_0\;w_1]^{\text{T}}=[.2\;\;-.9]^{\text{T}}, \alpha = 1 / 5.$. Generate 200 hypothetical data:
+To do so, let `B = [w_0 ;w_1]'=[.2  -.9]', a = 1 / 5.`. Generate 200 hypothetical data:
 
 ```julia
 using DataFrames
@@ -47,19 +47,24 @@ f = A * B;
 y = f + rand(Normal(0, alpha), n);
 
 my_df = DataFrame(Independent = round(x, 4), Dependent = round(y, 4));
-my_df |> head # View the first six observations
 ```
-<script src='http://cdn.mathjax.org/mathjax/latest/MathJax.js' type='text/javascript'>    
-    MathJax.Hub.Config({
-        HTML: ["input/TeX","output/HTML-CSS"],
-        TeX: { extensions: ["AMSmath.js","AMSsymbols.js"],
-               equationNumbers: { autoNumber: "AMS" } },
-        extensions: ["tex2jax.js"],
-        jax: ["input/TeX","output/HTML-CSS"],
-        tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-                   displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
-                   processEscapes: true },
-        "HTML-CSS": { availableFonts: ["TeX"],
-                      linebreaks: { automatic: true } }
-    });
-</script>
+
+To view the head of the data, run the following:
+```julia
+head(my_df)
+
+# 6×2 DataFrames.DataFrame
+# │ Row │ Independent │ Dependent │
+# ├─────┼─────────────┼───────────┤
+# │ 1   │  0.5369     │ -0.3164   │
+# │ 2   │  0.8810     │ -0.5236   │
+# │ 3   │  0.3479     │  0.2077   │
+# │ 4   │ -0.2091     │  0.3833   │
+# │ 5   │ -0.3735     │  0.5150   │
+# │ 6   │  0.3251     │ -0.3508   │
+```
+Next is to plot this data which can be done as follows:
+```julia
+p = plot(my_df, x = :Independent, y = :Dependent)
+draw(PNG(20cm, 13cm), p)
+```
