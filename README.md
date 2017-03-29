@@ -147,7 +147,7 @@ Setup the necessary paramters including the gradients. The potential energy is t
 ```julia
 U(theta::Array{Float64}) = - logpost(theta)
 K(p::Array{Float64}; Σ = eye(length(p))) = (p' * inv(Σ) * p) / 2
-function dU(theta::Array{Float64}; alpha::Float64 = 1/5., b::Float64 = 2.)
+function dU(theta::Array{Float64}; alpha::Float64 = alpha, b::Float64 = eye_mat[1, 1])
   [-alpha * sum(y - (theta[1] + theta[2] * x));
    -alpha * sum((y - (theta[1] + theta[2] * x)) .* x)] + b * theta
 end
