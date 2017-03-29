@@ -186,17 +186,17 @@ est3
 ```
 Plot it
 ```julia
-my_df_mh = my_df;
-my_df_mh[:Yhat] = mapslices(mean, chain3[(burn_in + 1):thinning:end, :], [1])[1] + mapslices(mean, chain3[(burn_in + 1):thinning:end, :], [1])[2] * my_df[:Independent];
+my_df_sghmc = my_df;
+my_df_sghmc[:Yhat] = mapslices(mean, chain3[(burn_in + 1):thinning:end, :], [1])[1] + mapslices(mean, chain3[(burn_in + 1):thinning:end, :], [1])[2] * my_df[:Independent];
 
 for i in (burn_in + 1):thinning:10000
-    my_df_mh[Symbol("Yhat_Sample_" * string(i))] = chain3[i, 1] + chain3[i, 2] * my_df_mh[:Independent]
+    my_df_sghmc[Symbol("Yhat_Sample_" * string(i))] = chain3[i, 1] + chain3[i, 2] * my_df_sghmc[:Independent]
 end
 
-my_stack_mh = DataFrame(X = repeat(Array(my_df_mh[:Independent]), outer = length((burn_in + 1):thinning:10000)),
-                        Y = repeat(Array(my_df_mh[:Dependent]), outer = length((burn_in + 1):thinning:10000)),
-                        Var = Array(stack(my_df_mh[:, 4:end])[1]),
-                        Val = Array(stack(my_df_mh[:, 4:end])[2]));
+my_stack_sghmc = DataFrame(X = repeat(Array(my_df_sghmc[:Independent]), outer = length((burn_in + 1):thinning:10000)),
+                        Y = repeat(Array(my_df_sghmc[:Dependent]), outer = length((burn_in + 1):thinning:10000)),
+                        Var = Array(stack(my_df_sghmc[:, 4:end])[1]),
+                        Val = Array(stack(my_df_sghmc[:, 4:end])[2]));
 ch1cor_df = DataFrame(x = collect(0:1:(length(autocor(chain3[(burn_in + 1):thinning:10000, 1])) - 1)),
                       y1 = autocor(chain3[(burn_in + 1):thinning:10000, 1]),
                       y2 = autocor(chain3[(burn_in + 1):thinning:10000, 2]));
@@ -207,9 +207,9 @@ p2 = plot(DataFrame(chain3), x = :x2, xintercept = [-.5], Geom.vline(color = col
 p3 = plot(DataFrame(chain3), x = collect(1:nrow(DataFrame(chain3))), y = :x1, yintercept = [-.3], Geom.hline(color = colorant"white"), Geom.line, Guide.xlabel("Iterations"), Guide.ylabel("1st Parameter Chain Values"));
 p4 = plot(DataFrame(chain3), x = collect(1:nrow(DataFrame(chain1))), y = :x2, yintercept = [-.5], Geom.hline(color = colorant"white"), Geom.line, Guide.xlabel("Iterations"), Guide.ylabel("2nd Parameter Chain Values"));
 p5 = plot(DataFrame(chain3), x = :x1, y = :x2, Geom.path, Geom.point, Guide.xlabel("1st Parameter Chain Values"), Guide.ylabel("2nd Parameter Chain Values"));
-p6 = plot(layer(my_df_mh, x = :Independent, y = :Yhat, Geom.line, style(default_color = colorant"white")),
-          layer(my_stack_mh, x = :X, y = :Val, group = :Var, Geom.line, style(default_color = colorant"orange")),
-          layer(my_df_mh, x = :Independent, y = :Dependent, Geom.point, style(default_point_size = .05cm)),
+p6 = plot(layer(my_df_sghmc, x = :Independent, y = :Yhat, Geom.line, style(default_color = colorant"white")),
+          layer(my_stack_sghmc, x = :X, y = :Val, group = :Var, Geom.line, style(default_color = colorant"orange")),
+          layer(my_df_sghmc, x = :Independent, y = :Dependent, Geom.point, style(default_point_size = .05cm)),
           Guide.xlabel("Explanatory"), Guide.ylabel("Response and Predicted"));
 p7 = plot(ch1cor_df, x = :x, y = :y1, Geom.bar, Guide.xlabel("Lags"), Guide.ylabel("1st Parameter Autocorrelations"), Coord.cartesian(xmin = -1, xmax = 36, ymin = -.05, ymax = 1.05));
 p8 = plot(ch1cor_df, x = :x, y = :y2, Geom.bar,  Guide.xlabel("Lags"), Guide.ylabel("2nd Parameter Autocorrelations"), Coord.cartesian(xmin = -1, xmax = 36, ymin = -.05, ymax = 1.05));
