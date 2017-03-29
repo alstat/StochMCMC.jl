@@ -223,7 +223,10 @@ vstack(hstack(p0, p1, p2), hstack(p3, p4, p5), hstack(p6, p7, p8))
 
 
 ---
-<table>
+<table style = "body {
+   margin:0;
+   padding:0;
+  }">
 <tr><td>author:</td><td><b>Al-Ahmadgaid B. Asaad</b></td><td>thesis supervisor:</td><td><b>Joselito C. Magadia, Ph.D.</b></td></tr>
 <tr><td>email:</td><td>alasaadstat@gmail.com</td><td>website:</td><td>http://stat.upd.edu.ph/</td></tr>
 <tr><td>blog:</td><td><b>http://alstatr.blogspot.com/</b></td></tr>
