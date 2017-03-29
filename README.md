@@ -142,8 +142,16 @@ est
 #  -0.250422  0.759721
 ```
 ### Estimation: Hamiltonian Monte Carlo
-```
+Setup the necessary paramters including the gradients. The potential energy is the negative logposterior given by `U`, the gradient is `dU`; the kinetic energy is the standard Gaussian function given by `K`, with gradient `dK`. Thus,
 
+```julia
+U(theta::Array{Float64}) = - logpost(theta)
+K(p::Array{Float64}; Σ = eye(length(p))) = (p' * inv(Σ) * p) / 2
+function dU(theta::Array{Float64}; alpha::Float64 = 1/5., b::Float64 = 2.)
+  [-alpha * sum(y - (theta[1] + theta[2] * x));
+   -alpha * sum((y - (theta[1] + theta[2] * x)) .* x)] + b * theta
+end
+dK(p::AbstractArray{Float64}; Σ::Array{Float64} = eye(length(p))) = inv(Σ) * p;
 ```
 ---
 * author: **AL-AHMADGAID B. ASAAD**
