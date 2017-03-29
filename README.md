@@ -175,10 +175,11 @@ SGHMC_object = SGHMC(dU_noise, dK, eye(2), eye(2), eye(2), [0; 0], 2.);
 chain3 = mcmc(SGHMC_object, leapfrog_params = Dict([:ɛ => .0009, :τ => 20]), r = 10000);
 ```
 Extract the estimate:
-```
+```julia
 est3 = mapslices(mean, chain3[(burn_in + 1):thinning:end, :], [1]);
 est3
-
+# 1×2 Array{Float64,2}:
+#  -0.251765  -0.307745
 ```
 
 
