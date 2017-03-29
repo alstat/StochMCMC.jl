@@ -223,9 +223,13 @@ vstack(hstack(p0, p1, p2), hstack(p3, p4, p5), hstack(p6, p7, p8))
 
 
 ---
+<table>
+<tr><td>
 * author: **Al-Ahmadgaid B. Asaad**
 * email: alasaadstat@gmail.com
 * blog: http://alstatr.blogspot.com/
-
+</td><td>
 * thesis supervisor: **Joselito C. Magadia, PH.D.**
 * website: http://stat.upd.edu.ph/
+</td></tr>
+</table>
