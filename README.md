@@ -194,9 +194,9 @@ for i in (burn_in + 1):thinning:10000
 end
 
 my_stack_sghmc = DataFrame(X = repeat(Array(my_df_sghmc[:Independent]), outer = length((burn_in + 1):thinning:10000)),
-                        Y = repeat(Array(my_df_sghmc[:Dependent]), outer = length((burn_in + 1):thinning:10000)),
-                        Var = Array(stack(my_df_sghmc[:, 4:end])[1]),
-                        Val = Array(stack(my_df_sghmc[:, 4:end])[2]));
+                            Y = repeat(Array(my_df_sghmc[:Dependent]), outer = length((burn_in + 1):thinning:10000)),
+                            Var = Array(stack(my_df_sghmc[:, 4:end])[1]),
+                            Val = Array(stack(my_df_sghmc[:, 4:end])[2]));
 ch1cor_df = DataFrame(x = collect(0:1:(length(autocor(chain3[(burn_in + 1):thinning:10000, 1])) - 1)),
                       y1 = autocor(chain3[(burn_in + 1):thinning:10000, 1]),
                       y2 = autocor(chain3[(burn_in + 1):thinning:10000, 2]));
