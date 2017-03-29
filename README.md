@@ -162,6 +162,13 @@ est2
 #  -0.298274  -0.517591
 ```
 ### Estimation: Stochastic Gradient Hamiltonian Monte Carlo
+Define the gradient noise and other parameters of the SGHMC:
+```julia
+function dU_noise(theta::Array{Float64}; alpha::Float64 = 1/5., b::Float64 = 2.)
+  [-alpha * sum(y - (theta[1] + theta[2] * x));
+   -alpha * sum((y - (theta[1] + theta[2] * x)) .* x)] + b * theta + randn(2,1)
+end
+```
 ---
 * author: **AL-AHMADGAID B. ASAAD**
 * email: alasaadstat@gmail.com
