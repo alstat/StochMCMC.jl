@@ -71,7 +71,7 @@ plot(my_df, x = :Independent, y = :Dependent)
 
 ![(Right) Triangular Membership Function](https://github.com/alstat/StochMCMC.jl/blob/master/figures/plot1.png)
 
-### Prior Distribution
+### Setup Probabilities
 In order to proceed with the Bayesian inference, the parameters of the model is considered to be random modeled by a standard Gaussian distribution. That is, `B ~ N(0, I)`, where `0` is the zero vector. The likelihood of the data is given by,
 
 ```
@@ -81,4 +81,53 @@ Thus the posterior is given by,
 ```
 P(w|[x, y]) ∝ P(w)L(w|[x, y], b)
 ```
-To start programming,
+
+To start programming, define the probabilities
+```julia
+"""
+The log prior function is given by the following codes:
+"""
+function logprior(theta::Array{Float64}; mu::Array{Float64} = mu, s::Array{Float64} = s)
+  w0_prior = log(pdf(Normal(mu[1, 1], s[1, 1]), theta[1]))
+  w1_prior = log(pdf(Normal(mu[2, 1], s[2, 2]), theta[2]))
+   w_prior = [w0_prior w1_prior]
+
+  return w_prior |> sum
+end
+
+"""
+The log likelihood function is given by the following codes:
+"""
+function loglike(theta::Array{Float64}; alpha::Float64 = alpha, x::Array{Float64} = x, y::Array{Float64} = y)
+  yhat = theta[1] * exp(x / theta[2])
+
+  likhood = Float64[]
+  for i in 1:length(yhat)
+    push!(likhood, log(pdf(Normal(yhat[i], alpha), y[i])))
+  end
+
+  return likhood |> sum
+end
+
+"""
+The log posterior function is given by the following codes:
+"""
+function logpost(theta::Array{Float64})
+  loglike(theta, alpha = alpha, x = x, y = y) + logprior(theta, mu = mu, s = s)
+end
+```
+### Estimation
+The following are the Metropolis-Hasting algorithm
+```julia
+# Define necessary parameters
+Imat = diagm(ones(2), 0)
+b = 2. # for prior
+b1 = (1 / b)^2 # Square this since in Julia, rnorm uses standard dev
+
+mu = zeros(20) # for prior
+s = b1 * Imat # for prior
+
+mh_object = MH(logpost; init_est = mu);
+@time chain1 = mcmc(mh_object, r = 10000);
+est = mapslices(mean, chain1, [1])
+```
