@@ -26,6 +26,7 @@ function mcmc(parameters::SGHMC;
   end
 
   chain = zeros(r, d);
+  chain[1, :] = w
   B = .5 * V * ɛ
   D = sqrt(2 * (C - B) * ɛ)
   if size(B) != size(C)
@@ -42,7 +43,7 @@ function mcmc(parameters::SGHMC;
     end
   end
 
-  for i in 1:r
+  for i in 1:(r - 1)
     p = randn(d, 1)
 
     for j in 1:τ
@@ -50,7 +51,7 @@ function mcmc(parameters::SGHMC;
       w = w + dK(p) * ɛ;
     end
 
-    chain[i, :] = w
+    chain[i + 1, :] = w
   end
 
   return chain

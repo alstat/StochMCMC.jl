@@ -26,6 +26,7 @@ function mcmc(parameters::HMC;
   end
 
   chain = zeros(r, d);
+  chain[1, :] = w
   for i in 1:(r - 1)
     w = chain[i, :]
     p = randn(length(w))
