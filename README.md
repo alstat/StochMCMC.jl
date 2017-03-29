@@ -1,7 +1,7 @@
 # StochMCMC.jl
 *A Julia package for Stochastic Gradient Markov Chain Monte Carlo*
 
-This package is part of my master's thesis entitled **Bayesian Autoregressive Distributed Lag** *via* **Stochastic Gradient Hamiltonian Monte Carlo** or BADL-SGHMC. However, as the title of this says, this package aims to accomodate other Stochastic Gradient MCMCs in the near future. At the latest, the following are the MCMC algorithms available:
+This package is part of my master's thesis entitled **Bayesian Autoregressive Distributed Lag** *via* **Stochastic Gradient Hamiltonian Monte Carlo** or BADL-SGHMC. However as the title says, this package aims to accomodate other Stochastic Gradient MCMCs in the near future. At the latest, the following are the MCMC algorithms available:
 
 1. Metropolis-Hasting
 2. Hamiltonian Monte Carlo
@@ -21,10 +21,10 @@ using StochMCMC
 In order to illustrate the modeling, the data is simulated from a simple linear regression expectation function. That is the model is given by
 
 ```
-y_i= w_0 + w_1 x_i + e_i,   e_i ~ N(0, 1 / a)
+y_i = w_0 + w_1 x_i + e_i,   e_i ~ N(0, 1 / a)
 ```
 ### Data Simulation
-To do so, let `B = [w_0, w_1]'=[.2, -.9]', a = 1 / 5`. Generate 200 hypothetical data:
+To do so, let `B = [w_0, w_1]' = [.2, -.9]', a = 1 / 5`. Generate 200 hypothetical data:
 
 ```julia
 using DataFrames
@@ -129,7 +129,7 @@ eye_mat = eye(2)
 Run the MCMC:
 ```julia
 mh_object = MH(logpost; init_est = [.1; .1]);
-chain1 = mcmc(mh_object, r = 10000);
+chain1 = mcmc(mh_object, r = 100000);
 ```
 Extract the estimate
 ```julia
@@ -141,4 +141,8 @@ est = mapslices(mean, chain1[(burn_in + 1):thinning:end, :], [1]);
 est
 
 #
+```
+### Estimation: Hamiltonian Monte Carlo
+```
+
 ```
