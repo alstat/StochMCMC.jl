@@ -169,6 +169,20 @@ function dU_noise(theta::Array{Float64}; alpha::Float64 = a, b::Float64 = eye_ma
    -alpha * sum((y - (theta[1] + theta[2] * x)) .* x)] + b * theta + randn(2,1)
 end
 ```
+Run the MCMC:
+```julia
+SGHMC_object = SGHMC(dU_noise, dK, eye(2), eye(2), eye(2), [0; 0], 2.);
+chain3 = mcmc(SGHMC_object, leapfrog_params = Dict([:ɛ => .0009, :τ => 20]), r = 10000);
+```
+Extract the estimate:
+```
+est3 = mapslices(mean, chain3[(burn_in + 1):thinning:end, :], [1]);
+est3
+
+```
+
+
+
 ---
 * author: **AL-AHMADGAID B. ASAAD**
 * email: alasaadstat@gmail.com
