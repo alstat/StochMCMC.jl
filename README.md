@@ -126,14 +126,19 @@ alpha =  1 / 5.
 zero_vec = zeros(2)
 eye_mat = eye(2)
 ```
-Estimate the model:
+Run the MCMC:
 ```julia
-mh_object = MH(logpost);
+mh_object = MH(logpost; init_est = [.1; .1]);
 chain1 = mcmc(mh_object, r = 10000);
+```
+Extract the estimate
+```julia
+burn_in = 100
+thinning = 10
 
 # Expetation of the Posterior
-est = mapslices(mean, chain1, [1]);
+est = mapslices(mean, chain1[(burn_in + 1):thinning:end, :], [1]);
 est
 
-
+#
 ```
