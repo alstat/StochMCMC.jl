@@ -209,11 +209,13 @@ p4 = plot(DataFrame(chain3), x = collect(1:nrow(DataFrame(chain1))), y = :x2, yi
 p5 = plot(DataFrame(chain3), x = :x1, y = :x2, Geom.path, Geom.point, Guide.xlabel("1st Parameter Chain Values"), Guide.ylabel("2nd Parameter Chain Values"));
 p6 = plot(layer(my_df_mh, x = :Independent, y = :Yhat, Geom.line, style(default_color = colorant"white")),
           layer(my_stack_mh, x = :X, y = :Val, group = :Var, Geom.line, style(default_color = colorant"orange")),
-          layer(my_df_mh, x = :X, y = :Y, Geom.point, style(default_point_size = .05cm)),
+          layer(my_df_mh, x = :Independent, y = :Dependent, Geom.point, style(default_point_size = .05cm)),
           Guide.xlabel("Explanatory"), Guide.ylabel("Response and Predicted"));
 p7 = plot(ch1cor_df, x = :x, y = :y1, Geom.bar, Guide.xlabel("Lags"), Guide.ylabel("1st Parameter Autocorrelations"), Coord.cartesian(xmin = -1, xmax = 36, ymin = -.05, ymax = 1.05));
 p8 = plot(ch1cor_df, x = :x, y = :y2, Geom.bar,  Guide.xlabel("Lags"), Guide.ylabel("2nd Parameter Autocorrelations"), Coord.cartesian(xmin = -1, xmax = 36, ymin = -.05, ymax = 1.05));
 ```
+![(Right) Triangular Membership Function](https://github.com/alstat/StochMCMC.jl/blob/master/figures/plot2.png)
+
 
 
 
