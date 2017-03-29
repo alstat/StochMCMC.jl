@@ -213,6 +213,8 @@ p6 = plot(layer(my_df_mh, x = :Independent, y = :Yhat, Geom.line, style(default_
           Guide.xlabel("Explanatory"), Guide.ylabel("Response and Predicted"));
 p7 = plot(ch1cor_df, x = :x, y = :y1, Geom.bar, Guide.xlabel("Lags"), Guide.ylabel("1st Parameter Autocorrelations"), Coord.cartesian(xmin = -1, xmax = 36, ymin = -.05, ymax = 1.05));
 p8 = plot(ch1cor_df, x = :x, y = :y2, Geom.bar,  Guide.xlabel("Lags"), Guide.ylabel("2nd Parameter Autocorrelations"), Coord.cartesian(xmin = -1, xmax = 36, ymin = -.05, ymax = 1.05));
+
+vstack(hstack(p0, p1, p2), hstack(p3, p4, p5), hstack(p6, p7, p8))
 ```
 ![(Right) Triangular Membership Function](https://github.com/alstat/StochMCMC.jl/blob/master/figures/plot2.png)
 
