@@ -36,7 +36,7 @@ Gadfly.push_theme(:dark)
 srand(123);
 
 # Define data parameters
-w0 = .2; w1 = -.9; stdev = 5.;
+w0 = -.3; w1 = -.5; stdev = 5.;
 alpha = 1 / stdev;
 
 # Generate Hypothetical Data
@@ -53,16 +53,15 @@ my_df = DataFrame(Independent = round(x, 4), Dependent = round(y, 4));
 To view the head of the data, run the following:
 ```julia
 head(my_df)
-
 # 6×2 DataFrames.DataFrame
 # │ Row │ Independent │ Dependent │
 # ├─────┼─────────────┼───────────┤
-# │ 1   │  0.5369     │ -0.3164   │
-# │ 2   │  0.8810     │ -0.5236   │
-# │ 3   │  0.3479     │  0.2077   │
-# │ 4   │ -0.2091     │  0.3833   │
-# │ 5   │ -0.3735     │  0.5150   │
-# │ 6   │  0.3251     │ -0.3508   │
+# │ 1   │  0.5369     │ -0.6016   │
+# │ 2   │  0.8810     │ -0.6712   │
+# │ 3   │  0.3479     │ -0.1531   │
+# │ 4   │ -0.2091     │ -0.2004   │
+# │ 5   │ -0.3735     │ -0.1345   │
+# │ 6   │  0.3251     │ -0.7208   │
 ```
 Next is to plot this data which can be done as follows:
 ```julia
@@ -129,7 +128,7 @@ eye_mat = eye(2)
 Run the MCMC:
 ```julia
 mh_object = MH(logpost; init_est = [.1; .1]);
-chain1 = mcmc(mh_object, r = 100000);
+chain1 = mcmc(mh_object, r = 10000);
 ```
 Extract the estimate
 ```julia
@@ -139,8 +138,8 @@ thinning = 10
 # Expetation of the Posterior
 est = mapslices(mean, chain1[(burn_in + 1):thinning:end, :], [1]);
 est
-
-#
+# 1×2 Array{Float64,2}:
+#  -0.250422  0.759721
 ```
 ### Estimation: Hamiltonian Monte Carlo
 ```
@@ -148,5 +147,7 @@ est
 ```
 ---
 author: **AL-AHMADGAID B. ASAAD**
+
 email: alasaadstat@gmail.com
+
 blog: alstatr.blogspot.com
