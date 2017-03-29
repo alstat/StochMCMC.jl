@@ -24,7 +24,7 @@ In order to illustrate the modeling, the data is simulated from a simple linear 
 y_i= w_0 + w_1 x_i + e_i,   e_i ~ N(0, 1 / a)
 ```
 ### Data Simulation
-To do so, let `B = [w_0, w_1]'=[.2, -.9]', a = 1 / 5.`. Generate 200 hypothetical data:
+To do so, let `B = [w_0, w_1]'=[.2, -.9]', a = 1 / 5`. Generate 200 hypothetical data:
 
 ```julia
 using DataFrames
@@ -87,7 +87,7 @@ To start programming, define the probabilities
 """
 The log prior function is given by the following codes:
 """
-function logprior(theta::Array{Float64}; mu::Array{Float64} = mu, s::Array{Float64} = s)
+function logprior(theta::Array{Float64}; mu::Array{Float64} = zero_vec, s::Array{Float64} = s)
   w0_prior = log(pdf(Normal(mu[1, 1], s[1, 1]), theta[1]))
   w1_prior = log(pdf(Normal(mu[2, 1], s[2, 2]), theta[2]))
    w_prior = [w0_prior w1_prior]
@@ -113,21 +113,27 @@ end
 The log posterior function is given by the following codes:
 """
 function logpost(theta::Array{Float64})
-  loglike(theta, alpha = alpha, x = x, y = y) + logprior(theta, mu = mu, s = s)
+  loglike(theta, alpha = alpha, x = x, y = y) + logprior(theta, mu = zero_vec, s = eye_mat)
 end
 ```
-### Estimation
-The following are the Metropolis-Hasting algorithm
+### Estimation: Metropolis-Hasting
+To start the estimation, define the necessary parameters for the Metropolis-Hasting algorithm
 ```julia
-# Define necessary parameters
-Imat = diagm(ones(2), 0)
-b = 2. # for prior
-b1 = (1 / b)^2 # Square this since in Julia, rnorm uses standard dev
+# Scale parameter for the likelihood
+alpha =  1 / 5.
 
-mu = zeros(20) # for prior
-s = b1 * Imat # for prior
+# Hyperparameters
+zero_vec = zeros(2)
+eye_mat = eye(2)
+```
+Estimate the model:
+```julia
+mh_object = MH(logpost);
+chain1 = mcmc(mh_object, r = 10000);
 
-mh_object = MH(logpost; init_est = mu);
-@time chain1 = mcmc(mh_object, r = 10000);
-est = mapslices(mean, chain1, [1])
+# Expetation of the Posterior
+est = mapslices(mean, chain1, [1]);
+est
+
+
 ```
