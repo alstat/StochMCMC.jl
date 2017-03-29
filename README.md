@@ -97,7 +97,7 @@ end
 """
 The log likelihood function is given by the following codes:
 """
-function loglike(theta::Array{Float64}; alpha::Float64 = alpha, x::Array{Float64} = x, y::Array{Float64} = y)
+function loglike(theta::Array{Float64}; alpha::Float64 = a, x::Array{Float64} = x, y::Array{Float64} = y)
   yhat = theta[1] * exp(x / theta[2])
 
   likhood = Float64[]
@@ -112,14 +112,14 @@ end
 The log posterior function is given by the following codes:
 """
 function logpost(theta::Array{Float64})
-  loglike(theta, alpha = alpha, x = x, y = y) + logprior(theta, mu = zero_vec, s = eye_mat)
+  loglike(theta, alpha = a, x = x, y = y) + logprior(theta, mu = zero_vec, s = eye_mat)
 end
 ```
 ### Estimation: Metropolis-Hasting
 To start the estimation, define the necessary parameters for the Metropolis-Hasting algorithm
 ```julia
 # Scale parameter for the likelihood
-alpha =  1 / 5.
+a =  1 / 5.
 
 # Hyperparameters
 zero_vec = zeros(2)
@@ -136,8 +136,8 @@ burn_in = 100
 thinning = 10
 
 # Expetation of the Posterior
-est = mapslices(mean, chain1[(burn_in + 1):thinning:end, :], [1]);
-est
+est1 = mapslices(mean, chain1[(burn_in + 1):thinning:end, :], [1]);
+est1
 # 1×2 Array{Float64,2}:
 #  -0.250422  0.759721
 ```
@@ -147,11 +147,22 @@ Setup the necessary paramters including the gradients. The potential energy is t
 ```julia
 U(theta::Array{Float64}) = - logpost(theta)
 K(p::Array{Float64}; Σ = eye(length(p))) = (p' * inv(Σ) * p) / 2
-function dU(theta::Array{Float64}; alpha::Float64 = alpha, b::Float64 = eye_mat[1, 1])
+function dU(theta::Array{Float64}; alpha::Float64 = a, b::Float64 = eye_mat[1, 1])
   [-alpha * sum(y - (theta[1] + theta[2] * x));
    -alpha * sum((y - (theta[1] + theta[2] * x)) .* x)] + b * theta
 end
 dK(p::AbstractArray{Float64}; Σ::Array{Float64} = eye(length(p))) = inv(Σ) * p;
+```
+Run the MCMC:
+```julia
+HMC_object = HMC(U, K, dU, dK, zeros(2, 1), 2);
+chain2 = mcmc(HMC_object, leapfrog_params = Dict([:ɛ => .009, :τ => 20]), r = 10000);
+```
+Extract the estimate
+```julia
+est2 = mapslices(mean, chain2[(burn_in + 1):thinning:end, :], [1]);
+est2
+
 ```
 ---
 * author: **AL-AHMADGAID B. ASAAD**
