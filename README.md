@@ -198,8 +198,8 @@ xy_stack_mh = DataFrame(X = repeat(Array(my_df_mh[:Independent]), outer = length
                         Var = Array(stack(my_df_mh[:, 4:end])[1]),
                         Val = Array(stack(my_df_mh[:, 4:end])[2]));
 ch1cor_df = DataFrame(x = collect(0:1:(length(autocor(chain3[(burn_in + 1):thinning:10000, 1])) - 1)),
-                                              y1 = autocor(chain3[(burn_in + 1):thinning:10000, 1]),
-                                              y2 = autocor(chain3[(burn_in + 1):thinning:10000, 2]));
+                      y1 = autocor(chain3[(burn_in + 1):thinning:10000, 1]),
+                      y2 = autocor(chain3[(burn_in + 1):thinning:10000, 2]));
 ```
 
 
