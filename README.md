@@ -146,8 +146,6 @@ est
 
 ```
 ---
-author: **AL-AHMADGAID B. ASAAD**
-
-email: alasaadstat@gmail.com
-
-blog: alstatr.blogspot.com
+* author: **AL-AHMADGAID B. ASAAD**
+* email: alasaadstat@gmail.com
+* blog: http://alstatr.blogspot.com/
