@@ -36,8 +36,7 @@ Gadfly.push_theme(:dark)
 srand(123);
 
 # Define data parameters
-w0 = -.3; w1 = -.5; stdev = 5.;
-alpha = 1 / stdev;
+w0 = -.3; w1 = -.5; stdev = 5.; a =  1 / stdev
 
 # Generate Hypothetical Data
 n = 200;
@@ -45,7 +44,7 @@ x = rand(Uniform(-1, 1), n);
 A = [ones(length(x)) x];
 B = [w0; w1];
 f = A * B;
-y = f + rand(Normal(0, alpha), n);
+y = f + rand(Normal(0, a), n);
 
 my_df = DataFrame(Independent = round(x, 4), Dependent = round(y, 4));
 ```
@@ -86,7 +85,7 @@ To start programming, define the probabilities
 """
 The log prior function is given by the following codes:
 """
-function logprior(theta::Array{Float64}; mu::Array{Float64} = zero_vec, s::Array{Float64} = s)
+function logprior(theta::Array{Float64}; mu::Array{Float64} = zero_vec, s::Array{Float64} = eye_mat)
   w0_prior = log(pdf(Normal(mu[1, 1], s[1, 1]), theta[1]))
   w1_prior = log(pdf(Normal(mu[2, 1], s[2, 2]), theta[2]))
    w_prior = [w0_prior w1_prior]
@@ -98,7 +97,7 @@ end
 The log likelihood function is given by the following codes:
 """
 function loglike(theta::Array{Float64}; alpha::Float64 = a, x::Array{Float64} = x, y::Array{Float64} = y)
-  yhat = theta[1] * exp(x / theta[2])
+  yhat = theta[1] + theta[2] * x
 
   likhood = Float64[]
   for i in 1:length(yhat)
@@ -118,16 +117,13 @@ end
 ### Estimation: Metropolis-Hasting
 To start the estimation, define the necessary parameters for the Metropolis-Hasting algorithm
 ```julia
-# Scale parameter for the likelihood
-a =  1 / 5.
-
 # Hyperparameters
 zero_vec = zeros(2)
 eye_mat = eye(2)
 ```
 Run the MCMC:
 ```julia
-mh_object = MH(logpost; init_est = [.1; .1]);
+mh_object = MH(logpost; init_est = zeros(2));
 chain1 = mcmc(mh_object, r = 10000);
 ```
 Extract the estimate
@@ -139,7 +135,7 @@ thinning = 10
 est1 = mapslices(mean, chain1[(burn_in + 1):thinning:end, :], [1]);
 est1
 # 1×2 Array{Float64,2}:
-#  -0.250422  0.759721
+#  -0.306313  -0.499242
 ```
 ### Estimation: Hamiltonian Monte Carlo
 Setup the necessary paramters including the gradients. The potential energy is the negative logposterior given by `U`, the gradient is `dU`; the kinetic energy is the standard Gaussian function given by `K`, with gradient `dK`. Thus,
@@ -155,15 +151,17 @@ dK(p::AbstractArray{Float64}; Σ::Array{Float64} = eye(length(p))) = inv(Σ) * p
 ```
 Run the MCMC:
 ```julia
-HMC_object = HMC(U, K, dU, dK, zeros(2, 1), 2);
+HMC_object = HMC(U, K, dU, dK, [.1; .1], 2);
 chain2 = mcmc(HMC_object, leapfrog_params = Dict([:ɛ => .009, :τ => 20]), r = 10000);
 ```
 Extract the estimate
 ```julia
 est2 = mapslices(mean, chain2[(burn_in + 1):thinning:end, :], [1]);
 est2
-
+# 1×2 Array{Float64,2}:
+#  -0.298274  -0.517591
 ```
+### Estimation: Stochastic Gradient Hamiltonian Monte Carlo
 ---
 * author: **AL-AHMADGAID B. ASAAD**
 * email: alasaadstat@gmail.com
