@@ -12,11 +12,13 @@ This package is part of my master's thesis entitled **Bayesian Autoregressive Di
 Installation
 ============
 To install the package, simply run the following codes
+
 .. code-block:: julia
 
     Pkg.clone("https://github.com/alstat/StochMCMC.jl")
 
 And to load the package:
+
 .. code-block:: julia
 
     using StochMCMC
@@ -29,6 +31,7 @@ Bayesian Linear Regression
 In order to illustrate the modeling, the data is simulated from a simple linear regression expectation function. That is the model is given by
 
 .. code-block:: julia
+
     y_i = w_0 + w_1 x_i + e_i,   e_i ~ N(0, 1 / a)
 
 Data Simulation
@@ -60,6 +63,7 @@ To do so, let `B = [w_0, w_1]' = [.2, -.9]', a = 1 / 5`. Generate 200 hypothetic
 
 
 To view the head of the data, run the following:
+
 .. code-block:: julia
 
     head(my_df)
@@ -74,23 +78,30 @@ To view the head of the data, run the following:
     # │ 6   │  0.3251     │ -0.7208   │
 
 Next is to plot this data which can be done as follows:
+
 .. code-block:: julia
 
     plot(my_df, x = :Independent, y = :Dependent)
 
+.. image:: https://github.com/alstat/StochMCMC.jl/blob/master/figures/plot1.png
+    :width: 200px
+    :align: center
+    :height: 100px
+    :alt: alternate text
 
-![(Right) Triangular Membership Function](https://github.com/alstat/StochMCMC.jl/blob/master/figures/plot1.png)
-
-###ii. Setup Probabilities
+Setup Probabilities
+~~~~~~~~~~~~~~~~~~~~~
 In order to proceed with the Bayesian inference, the parameters of the model is considered to be random modeled by a standard Gaussian distribution. That is, `B ~ N(0, I)`, where `0` is the zero vector. The likelihood of the data is given by,
 
-```
-L(w|[x, y], b) = ∏_{i=1}^n N([x_i, y_i]|w, b)
-```
+.. code-block:: julia
+
+    L(w|[x, y], b) = ∏_{i=1}^n N([x_i, y_i]|w, b)
+
 Thus the posterior is given by,
-```
-P(w|[x, y]) ∝ P(w)L(w|[x, y], b)
-```
+
+.. code-block:: julia
+    P(w|[x, y]) ∝ P(w)L(w|[x, y], b)
+
 
 To start programming, define the probabilities
 ```julia
