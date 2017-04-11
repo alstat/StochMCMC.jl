@@ -106,6 +106,7 @@ Thus the posterior is given by,
 To start programming, define the probabilities
 
 .. code-block:: julia
+
     """
     The log prior function is given by the following codes:
     """
@@ -145,6 +146,7 @@ Metropolis-Hasting
 To start the estimation, define the necessary parameters for the Metropolis-Hasting algorithm
 
 .. code-block:: julia
+
     # Hyperparameters
     zero_vec = zeros(2)
     eye_mat = eye(2)
@@ -152,6 +154,7 @@ To start the estimation, define the necessary parameters for the Metropolis-Hast
 Run the MCMC:
 
 .. code-block:: julia
+
     srand(123);
     mh_object = MH(logpost; init_est = zeros(2));
     chain1 = mcmc(mh_object, r = 10000);
@@ -159,6 +162,7 @@ Run the MCMC:
 Extract the estimate
 
 .. code-block:: julia
+
     burn_in = 100;
     thinning = 10;
 
@@ -173,6 +177,7 @@ Hamiltonian Monte Carlo
 Setup the necessary paramters including the gradients. The potential energy is the negative logposterior given by `U`, the gradient is `dU`; the kinetic energy is the standard Gaussian function given by `K`, with gradient `dK`. Thus,
 
 .. code-block:: julia
+
     U(theta::Array{Float64}) = - logpost(theta);
     K(p::Array{Float64}; Σ = eye(length(p))) = (p' * inv(Σ) * p) / 2;
     function dU(theta::Array{Float64}; alpha::Float64 = a, b::Float64 = eye_mat[1, 1])
@@ -184,6 +189,7 @@ Setup the necessary paramters including the gradients. The potential energy is t
 Run the MCMC:
 
 .. code-block:: julia
+
     srand(123);
     HMC_object = HMC(U, K, dU, dK, zeros(2), 2);
     chain2 = mcmc(HMC_object, leapfrog_params = Dict([:ɛ => .09, :τ => 20]), r = 10000);
@@ -191,6 +197,7 @@ Run the MCMC:
 Extract the estimate
 
 .. code-block:: julia
+
     est2 = mapslices(mean, chain2[(burn_in + 1):thinning:end, :], [1]);
     est2
     # 1×2 Array{Float64,2}:
@@ -201,6 +208,7 @@ Stochastic Gradient Hamiltonian Monte Carlo
 Define the gradient noise and other parameters of the SGHMC:
 
 .. code-block:: julia
+
     function dU_noise(theta::Array{Float64}; alpha::Float64 = a, b::Float64 = eye_mat[1, 1])
       [-alpha * sum(y - (theta[1] + theta[2] * x));
        -alpha * sum((y - (theta[1] + theta[2] * x)) .* x)] + b * theta + randn(2,1)
@@ -209,6 +217,7 @@ Define the gradient noise and other parameters of the SGHMC:
 Run the MCMC:
 
 .. code-block:: julia
+
     srand(123);
     SGHMC_object = SGHMC(dU_noise, dK, eye(2), eye(2), eye(2), [0; 0], 2.);
     chain3 = mcmc(SGHMC_object, leapfrog_params = Dict([:ɛ => .09, :τ => 20]), r = 10000);
@@ -216,6 +225,7 @@ Run the MCMC:
 Extract the estimate:
 
 .. code-block:: julia
+
     est3 = mapslices(mean, chain3[(burn_in + 1):thinning:end, :], [1]);
     est3
     # 1×2 Array{Float64,2}:
@@ -224,6 +234,7 @@ Extract the estimate:
 Plot it
 
 .. code-block:: julia
+
     my_df_sghmc = my_df;
     my_df_sghmc[:Yhat] = mapslices(mean, chain3[(burn_in + 1):thinning:end, :], [1])[1] + mapslices(mean, chain3[(burn_in + 1):thinning:end, :], [1])[2] * my_df[:Independent];
 
