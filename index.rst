@@ -1,4 +1,4 @@
-# StochMCMC.jl
+#StochMCMC.jl
 *A Julia package for Stochastic Gradient Markov Chain Monte Carlo*
 
 This package is part of my master's thesis entitled **Bayesian Autoregressive Distributed Lag** *via* **Stochastic Gradient Hamiltonian Monte Carlo** or BADL-SGHMC. However as the title says, this package aims to accomodate other Stochastic Gradient MCMCs in the near future. At the latest, the following are the MCMC algorithms available:
@@ -7,7 +7,7 @@ This package is part of my master's thesis entitled **Bayesian Autoregressive Di
 2. Hamiltonian Monte Carlo
 3. Stochastic Gradient Hamiltonian Monte Carlo
 
-### i. Installation
+###i. Installation
 To install the package, simply run the following codes
 ```julia
 Pkg.clone("https://github.com/alstat/StochMCMC.jl")
@@ -17,13 +17,13 @@ And to load the package:
 using StochMCMC
 ```
 
-## Tutorial: Bayesian Linear Regression
+##Tutorial: Bayesian Linear Regression
 In order to illustrate the modeling, the data is simulated from a simple linear regression expectation function. That is the model is given by
 
 ```
 y_i = w_0 + w_1 x_i + e_i,   e_i ~ N(0, 1 / a)
 ```
-### i. Data Simulation
+###i. Data Simulation
 To do so, let `B = [w_0, w_1]' = [.2, -.9]', a = 1 / 5`. Generate 200 hypothetical data:
 
 ```julia
@@ -69,7 +69,7 @@ plot(my_df, x = :Independent, y = :Dependent)
 
 ![(Right) Triangular Membership Function](https://github.com/alstat/StochMCMC.jl/blob/master/figures/plot1.png)
 
-### ii. Setup Probabilities
+###ii. Setup Probabilities
 In order to proceed with the Bayesian inference, the parameters of the model is considered to be random modeled by a standard Gaussian distribution. That is, `B ~ N(0, I)`, where `0` is the zero vector. The likelihood of the data is given by,
 
 ```
@@ -114,7 +114,7 @@ function logpost(theta::Array{Float64})
   loglike(theta, alpha = a, x = x, y = y) + logprior(theta, mu = zero_vec, s = eye_mat)
 end
 ```
-### iii. Estimation: Metropolis-Hasting
+###iii. Estimation: Metropolis-Hasting
 To start the estimation, define the necessary parameters for the Metropolis-Hasting algorithm
 ```julia
 # Hyperparameters
@@ -138,7 +138,7 @@ est1
 # 1×2 Array{Float64,2}:
 #  -0.313208  -0.46376
 ```
-### iv. Estimation: Hamiltonian Monte Carlo
+###iv. Estimation: Hamiltonian Monte Carlo
 Setup the necessary paramters including the gradients. The potential energy is the negative logposterior given by `U`, the gradient is `dU`; the kinetic energy is the standard Gaussian function given by `K`, with gradient `dK`. Thus,
 
 ```julia
@@ -163,7 +163,7 @@ est2
 # 1×2 Array{Float64,2}:
 #  -0.307151  -0.458954
 ```
-### v. Estimation: Stochastic Gradient Hamiltonian Monte Carlo
+###v. Estimation: Stochastic Gradient Hamiltonian Monte Carlo
 Define the gradient noise and other parameters of the SGHMC:
 ```julia
 function dU_noise(theta::Array{Float64}; alpha::Float64 = a, b::Float64 = eye_mat[1, 1])
