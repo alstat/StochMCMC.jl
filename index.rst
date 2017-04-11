@@ -84,7 +84,7 @@ Next is to plot this data which can be done as follows:
     plot(my_df, x = :Independent, y = :Dependent)
 
 .. image:: figures/plot1.png
-    :width: 100%
+    :width: 60%
     :align: center
     :alt: alternate text
 
