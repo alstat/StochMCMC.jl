@@ -13,10 +13,12 @@ Installation
 ============
 To install the package, simply run the following codes
 .. code-block:: julia
+
     Pkg.clone("https://github.com/alstat/StochMCMC.jl")
 
 And to load the package:
 .. code-block:: julia
+
     using StochMCMC
 
 
@@ -30,10 +32,11 @@ In order to illustrate the modeling, the data is simulated from a simple linear 
     y_i = w_0 + w_1 x_i + e_i,   e_i ~ N(0, 1 / a)
 
 Data Simulation
-^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~
 To do so, let `B = [w_0, w_1]' = [.2, -.9]', a = 1 / 5`. Generate 200 hypothetical data:
 
 .. code-block:: julia
+
     using DataFrames
     using Distributions
     using Gadfly
@@ -58,6 +61,7 @@ To do so, let `B = [w_0, w_1]' = [.2, -.9]', a = 1 / 5`. Generate 200 hypothetic
 
 To view the head of the data, run the following:
 .. code-block:: julia
+
     head(my_df)
     # 6×2 DataFrames.DataFrame
     # │ Row │ Independent │ Dependent │
@@ -71,6 +75,7 @@ To view the head of the data, run the following:
 
 Next is to plot this data which can be done as follows:
 .. code-block:: julia
+
     plot(my_df, x = :Independent, y = :Dependent)
 
 
