@@ -1,4 +1,6 @@
-#StochMCMC.jl
+****
+StochMCMC.jl
+****
 *A Julia package for Stochastic Gradient Markov Chain Monte Carlo*
 
 This package is part of my master's thesis entitled **Bayesian Autoregressive Distributed Lag** *via* **Stochastic Gradient Hamiltonian Monte Carlo** or BADL-SGHMC. However as the title says, this package aims to accomodate other Stochastic Gradient MCMCs in the near future. At the latest, the following are the MCMC algorithms available:
@@ -7,65 +9,70 @@ This package is part of my master's thesis entitled **Bayesian Autoregressive Di
 2. Hamiltonian Monte Carlo
 3. Stochastic Gradient Hamiltonian Monte Carlo
 
-###i. Installation
+Installation
+============
 To install the package, simply run the following codes
-```julia
-Pkg.clone("https://github.com/alstat/StochMCMC.jl")
-```
-And to load the package:
-```julia
-using StochMCMC
-```
+.. code-block:: julia
+    Pkg.clone("https://github.com/alstat/StochMCMC.jl")
 
-##Tutorial: Bayesian Linear Regression
+And to load the package:
+.. code-block:: julia
+    using StochMCMC
+
+
+Tutorial
+=============
+Bayesian Linear Regression
+--------------------------
 In order to illustrate the modeling, the data is simulated from a simple linear regression expectation function. That is the model is given by
 
-```
-y_i = w_0 + w_1 x_i + e_i,   e_i ~ N(0, 1 / a)
-```
-###i. Data Simulation
+.. code-block:: julia
+    y_i = w_0 + w_1 x_i + e_i,   e_i ~ N(0, 1 / a)
+
+Data Simulation
+^^^^^^^^^^^^^^^^
 To do so, let `B = [w_0, w_1]' = [.2, -.9]', a = 1 / 5`. Generate 200 hypothetical data:
 
-```julia
-using DataFrames
-using Distributions
-using Gadfly
-using StochMCMC
-Gadfly.push_theme(:dark)
+.. code-block:: julia
+    using DataFrames
+    using Distributions
+    using Gadfly
+    using StochMCMC
+    Gadfly.push_theme(:dark)
 
-srand(123);
+    srand(123);
 
-# Define data parameters
-w0 = -.3; w1 = -.5; stdev = 5.; a =  1 / stdev
+    # Define data parameters
+    w0 = -.3; w1 = -.5; stdev = 5.; a =  1 / stdev
 
-# Generate Hypothetical Data
-n = 200;
-x = rand(Uniform(-1, 1), n);
-A = [ones(length(x)) x];
-B = [w0; w1];
-f = A * B;
-y = f + rand(Normal(0, a), n);
+    # Generate Hypothetical Data
+    n = 200;
+    x = rand(Uniform(-1, 1), n);
+    A = [ones(length(x)) x];
+    B = [w0; w1];
+    f = A * B;
+    y = f + rand(Normal(0, a), n);
 
-my_df = DataFrame(Independent = round(x, 4), Dependent = round(y, 4));
-```
+    my_df = DataFrame(Independent = round(x, 4), Dependent = round(y, 4));
+
 
 To view the head of the data, run the following:
-```julia
-head(my_df)
-# 6×2 DataFrames.DataFrame
-# │ Row │ Independent │ Dependent │
-# ├─────┼─────────────┼───────────┤
-# │ 1   │  0.5369     │ -0.6016   │
-# │ 2   │  0.8810     │ -0.6712   │
-# │ 3   │  0.3479     │ -0.1531   │
-# │ 4   │ -0.2091     │ -0.2004   │
-# │ 5   │ -0.3735     │ -0.1345   │
-# │ 6   │  0.3251     │ -0.7208   │
-```
+.. code-block:: julia
+    head(my_df)
+    # 6×2 DataFrames.DataFrame
+    # │ Row │ Independent │ Dependent │
+    # ├─────┼─────────────┼───────────┤
+    # │ 1   │  0.5369     │ -0.6016   │
+    # │ 2   │  0.8810     │ -0.6712   │
+    # │ 3   │  0.3479     │ -0.1531   │
+    # │ 4   │ -0.2091     │ -0.2004   │
+    # │ 5   │ -0.3735     │ -0.1345   │
+    # │ 6   │  0.3251     │ -0.7208   │
+
 Next is to plot this data which can be done as follows:
-```julia
-plot(my_df, x = :Independent, y = :Dependent)
-```
+.. code-block:: julia
+    plot(my_df, x = :Independent, y = :Dependent)
+
 
 ![(Right) Triangular Membership Function](https://github.com/alstat/StochMCMC.jl/blob/master/figures/plot1.png)
 
