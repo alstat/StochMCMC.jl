@@ -271,6 +271,10 @@ Plot it
     :height: 100px
     :alt: alternate text
 
+Click on my |ImageLink|_
+
+.. |ImageLink| image:: plot2.png
+.. _ImageLink: https://github.com/alstat/StochMCMC.jl/blob/master/figures/
 
 ---
 <table width=100%>
