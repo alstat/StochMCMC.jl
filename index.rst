@@ -84,9 +84,8 @@ Next is to plot this data which can be done as follows:
     plot(my_df, x = :Independent, y = :Dependent)
 
 .. image:: figures/plot1.png
-    :width: 200px
+    :width: 100%
     :align: center
-    :height: 100px
     :alt: alternate text
 
 Setup Probabilities
