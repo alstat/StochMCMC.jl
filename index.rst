@@ -265,16 +265,11 @@ Plot it
 
     vstack(hstack(p0, p1, p2), hstack(p3, p4, p5), hstack(p6, p7, p8))
 
-.. image:: https://github.com/alstat/StochMCMC.jl/blob/master/figures/plot2.png
+.. image:: figures/plot2.png
     :width: 200px
     :align: center
     :height: 100px
     :alt: alternate text
-
-Click on my |ImageLink|_
-
-.. |ImageLink| image:: plot2.png
-.. _ImageLink: https://github.com/alstat/StochMCMC.jl/blob/master/figures/
 
 ---
 <table width=100%>
