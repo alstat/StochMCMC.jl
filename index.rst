@@ -27,6 +27,7 @@ And to load the package:
     :maxdepth: 2
 
     tutorial.rst
+    mh.rst
 
 
 
