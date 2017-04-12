@@ -9,7 +9,9 @@ StochMCMC.jl
 :Web site: https://github.com/alstat/StochMCMC.jl
 :License: `MIT <https://github.com/brian-j-smith/Mamba.jl/blob/master/LICENSE.md>`_
 
-This package is part of my master's thesis entitled **Bayesian Autoregressive Distributed Lag** *via* **Stochastic Gradient Hamiltonian Monte Carlo** or BADL-SGHMC. However as the title says, this package aims to accomodate other Stochastic Gradient MCMCs in the near future. At the latest, the following are the MCMC algorithms available:
+This package is part of my master's thesis entitled **Bayesian Autoregressive Distributed Lag** *via* **Stochastic Gradient Hamiltonian Monte Carlo** or BADL-SGHMC,
+under the supervision of Dr. Joselito C. Magadia of School of Statistics, University of the Philippines Diliman. This package aims to accommodate other
+Stochastic Gradient MCMCs in the near future. At the latest, the following are the MCMC algorithms available:
 
 1. Metropolis-Hasting
 2. Hamiltonian Monte Carlo
