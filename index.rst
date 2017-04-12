@@ -25,7 +25,7 @@ And to load the package:
 
 .. toctree::
     :maxdepth: 2
-
+    
     tutorial.rst
     mh.rst
 
