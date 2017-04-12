@@ -1,3 +1,5 @@
+.. _section-tutorial:
+
 Tutorial
 =============
 Bayesian Linear Regression
