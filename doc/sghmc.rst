@@ -11,9 +11,7 @@ Implementation of the Hamiltonian Monte Carlo sampler for Bayesian inference.
 
         * ``dU`` : the gradient or first derivative of the potential energy ``U``.
         * ``dK`` : the gradient or first derivative of the kinetic energy ``K``.
-        * ``dKΣ`` : the variance-covariance matrix in the gradient of the kinetic energy ``dK``,\
-        this is set to identity matrix for the case of standard Gaussian distribution.
-        
+        * ``dKΣ`` : the variance-covariance matrix in the gradient of the kinetic energy ``dK``, this is set to identity matrix for the case of standard Gaussian distribution.
         * ``C`` : the matrix factor in the frictional force term.
         * ``V`` : the matrix factor in the random force term.
         * ``init_est`` : the initial/starting value for the markov chain.
