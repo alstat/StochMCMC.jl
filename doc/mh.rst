@@ -62,6 +62,7 @@ Implementation of the Metropolis-Hasting sampler for Bayesian inference.
         :align: center
         :alt: alternate text
 
+
     In order to proceed with the Bayesian inference, the parameters of the model is considered to be random modeled by a standard Gaussian distribution. That is, :code:`B ~ N(0, I)`, where :code:`0` is the zero vector. The likelihood of the data is given by,
 
     .. code-block:: txt
