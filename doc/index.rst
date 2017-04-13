@@ -2,7 +2,7 @@
 StochMCMC.jl
 ****
 
-:Author: Al-Ahmadgaid B. Asaad (alasaadstat@gmail.com | alstatr.blogspot.com)
+:Author: Al-Ahmadgaid B. Asaad (alasaadstat@gmail.com | http://alstatr.blogspot.com/)
 :Requires: julia releases 0.4.1 or later
 :Date: |today|
 :License: `MIT <https://github.com/alstat/StochMCMC.jl/blob/master/LICENSE.md>`_
