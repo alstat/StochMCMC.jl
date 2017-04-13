@@ -38,9 +38,9 @@ Contents
 .. toctree::
     :maxdepth: 2
 
-    tutorial.rst
     mh.rst
     hmc.rst
+    sghmc.rst
 
 
 Indices
