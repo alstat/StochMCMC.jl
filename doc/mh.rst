@@ -111,7 +111,7 @@ Implementation of the Metropolis-Hasting sampler for Bayesian inference.
           loglike(theta, alpha = a, x = x, y = y) + logprior(theta, mu = zero_vec, s = eye_mat)
         end
 
-    To start the estimation, define the necessary parameters for the Metropolis-Hasting algorithm
+    To start the estimation, define the necessary parameters.
 
     .. code-block:: julia
 
