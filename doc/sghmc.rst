@@ -19,7 +19,7 @@ Implementation of the Hamiltonian Monte Carlo sampler for Bayesian inference.
 
     **Value**
 
-        Returns a ``HMC`` type object.
+        Returns a ``SGHMC`` type object.
 
     **Example**
 
