@@ -40,7 +40,7 @@ Contents
 
     tutorial.rst
     mh.rst
-
+    hmc.rst
 
 
 Indices
