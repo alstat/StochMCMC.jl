@@ -3,7 +3,7 @@ Stochastic Gradient Hamiltonian Monte Carlo
 
 Implementation of the Hamiltonian Monte Carlo sampler for Bayesian inference.
 
-.. function:: HMC(dU::Function, dK::Function, dKΣ::Array{Float64}, C::Array{Float64}, V::Array{Float64}, init_est::Array{Float64}, d::Int64)
+.. function:: SGHMC(dU::Function, dK::Function, dKΣ::Array{Float64}, C::Array{Float64}, V::Array{Float64}, init_est::Array{Float64}, d::Int64)
 
     Construct a ``Sampler`` object for Hamiltonian Monte Carlo sampling.
 
