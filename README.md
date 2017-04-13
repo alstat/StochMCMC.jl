@@ -1,7 +1,8 @@
 # StochMCMC.jl
-*A Julia package for Stochastic Gradient Markov Chain Monte Carlo*
 
 [![Documentation Status](https://readthedocs.org/projects/stochmcmcjl/badge/?version=latest)](http://stochmcmcjl.readthedocs.io/en/latest/?badge=latest)
+
+*A Julia package for Stochastic Gradient Markov Chain Monte Carlo*
 
 This package is part of my master's thesis entitled **Bayesian Autoregressive Distributed Lag** *via* **Stochastic Gradient Hamiltonian Monte Carlo** or BADL-SGHMC. However as the title says, this package aims to accomodate other Stochastic Gradient MCMCs in the near future. At the latest, the following are the MCMC algorithms available:
 
