@@ -12,11 +12,6 @@ A julia package for Stochastic Gradient Markov Chain Monte Carlo. The package is
 **Bayesian Autoregressive Distributed Lag** *via* **Stochastic Gradient Hamiltonian Monte Carlo** or **BADL-SGHMC**,
 under the supervision of **Dr. Joselito C. Magadia** of School of Statistics, University of the Philippines Diliman.
 This work aims to accommodate other Stochastic Gradient MCMCs in the near future.
-At the latest, the following are the algorithms available:
-
-1. Metropolis-Hasting
-2. Hamiltonian Monte Carlo
-3. Stochastic Gradient Hamiltonian Monte Carlo
 
 Installation
 ============
