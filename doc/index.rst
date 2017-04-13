@@ -2,11 +2,13 @@
 StochMCMC.jl
 ****
 
-:Author: Al-Ahmadgaid B. Asaad (alasaadstat@gmail.com)
+:Author: Al-Ahmadgaid B. Asaad (alasaadstat@gmail.com | alstatr.blogspot.com)
 :Requires: julia releases 0.4.1 or later
 :Date: |today|
-:Web site: https://github.com/alstat/StochMCMC.jl
 :License: `MIT <https://github.com/alstat/StochMCMC.jl/blob/master/LICENSE.md>`_
+:Website: https://github.com/alstat/StochMCMC.jl
+
+
 
 A julia package for Stochastic Gradient Markov Chain Monte Carlo. The package is part of my master's thesis entitled
 **Bayesian Autoregressive Distributed Lag** *via* **Stochastic Gradient Hamiltonian Monte Carlo** or **BADL-SGHMC**,
