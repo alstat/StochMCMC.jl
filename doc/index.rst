@@ -2,12 +2,11 @@
 StochMCMC.jl
 ****
 
-:Author: Al-Ahmadgaid B. Asaad (alasaadstat@gmail.com | http://alstatr.blogspot.com/)
+:Author: Al-Ahmadgaid B. Asaad (alasaadstat@gmail.com | https://alstatr.blogspot.com/)
 :Requires: julia releases 0.4.1 or later
 :Date: |today|
 :License: `MIT <https://github.com/alstat/StochMCMC.jl/blob/master/LICENSE.md>`_
 :Website: https://github.com/alstat/StochMCMC.jl
-
 
 
 A julia package for Stochastic Gradient Markov Chain Monte Carlo. The package is part of my master's thesis entitled
